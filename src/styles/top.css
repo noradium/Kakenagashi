@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+}
+
+.HeaderContainer {
+    background-color: #0fae1c;
+    text-align: left;
+}
+
+.ProgramsContainer_List {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
+    margin-left: -4px;
+}
+
+.ProgramsContainer_List .Program {
+    flex: 1;
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
+.ProgramsContainer_List .Program:hover {
+    transform: scale(1.05);
+}
+
+.PlayerContainer {
+    display: flex;
+}
+
+.PlayerContainer .PlayerContainer_Player {
+    width: 480px;
+    height: 270px;
+}
+
+.PlayerContainer .PlayerContainer_Player .VideoPlayer {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+}
+
+.PlayerContainer .PlayerContainer_Player .VideoPlayer .plyr,
+.PlayerContainer .PlayerContainer_Player .VideoPlayer .plyr .plyr__video-wrapper,
+.PlayerContainer .PlayerContainer_Player .VideoPlayer .plyr .plyr__video-wrapper .plyr--setup {
+    width: 100%;
+    height: 100%;
+}
+
+@import "./components/Program.css";
+
+@import "plyr/dist/plyr.css";

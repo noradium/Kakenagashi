@@ -1,0 +1,31 @@
+.Program {
+    min-width: 200px;
+    border: solid 1px #999;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    color: #666;
+    cursor: pointer;
+}
+
+.Program_Thumbnail_Image {
+    width: 100%;
+}
+
+.Program_Title {
+    text-align: left;
+    padding: 0 4px;
+    margin-top: 2px;
+    font-size: 13px;
+}
+
+.Program_Performers {
+    text-align: left;
+    font-size: 12px;
+    padding: 4px;
+}
+
+.Program_Performers .Program_Performers_Performer:not(:last-child):after {
+    content: '/';
+    margin: 0 2px;
+}

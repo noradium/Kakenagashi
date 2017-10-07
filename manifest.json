@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "onsen-web",
+  "version": "1.0.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "http://www.onsen.ag/*",
+        "https://app.onsen.ag/top"
+      ],
+      "js": [
+        "scripts/top.js"
+      ],
+      "css": [
+        "styles/top.css"
+      ]
+    },
+    {
+      "matches": [
+        "https://app.onsen.ag/users/edit"
+      ],
+      "js": [
+        "scripts/users_edit.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": ["scripts/background.js"]
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "*://*/*.m3u8*",
+    "webRequest",
+    "webRequestBlocking",
+    "https://app.onsen.ag/*"
+  ]
+}
