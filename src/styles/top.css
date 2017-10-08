@@ -8,14 +8,42 @@
     height: 68px;
 }
 
-.HeaderContainer_LoginButton,
-.HeaderContainer_LogoutButton {
+.HeaderContainer_Account {
+    display: flex;
     position: absolute;
     height: 68px;
-    line-height: 68px;
     top: 0;
     right: 0;
     color: #fff;
+}
+
+.HeaderContainer_AccountInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 8px;
+}
+
+.HeaderContainer_AccountType {
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-size: 10px;
+    background-color: #fff;
+    color: #0fae1c;
+}
+.HeaderContainer_AccountType.is-premium {
+    background-color: #c5b358;
+    color: #fff;
+}
+.HeaderContainer_AccountId {
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.HeaderContainer_LoginButton,
+.HeaderContainer_LogoutButton {
+    height: 68px;
+    line-height: 68px;
     padding: 0 12px;
     cursor: pointer;
 }
@@ -177,6 +205,41 @@
     margin-top: 8px;
     padding: 0 4px;
 }
+
+.PlayerContainer_Information_Title .HeartIcon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    vertical-align: text-top;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+.PlayerContainer_Information_Title .HeartIcon svg {
+    fill: #ccc;
+}
+
+.PlayerContainer_Information_Title.is-favorite .HeartIcon svg {
+    fill: #f44;
+}
+
+.PlayerContainer_Information_Performers_PerformerName .HeartIcon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-top;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+.PlayerContainer_Information_Performers_PerformerName .HeartIcon svg {
+    fill: #ccc;
+}
+
+.PlayerContainer_Information_Performers_PerformerName.is-favorite .HeartIcon svg {
+    fill: #f44;
+}
+
 .PlayerContainer_Information_Performers .PlayerContainer_Information_Performers_PerformerName:not(:last-child):after {
     content: '/';
     margin: 0 2px;

@@ -1,7 +1,10 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import Context from '../../Context';
 import SessionStorage from "../../../storage/SessionStorage";
+import {user} from '../../states/UserState';
 
+@observer
 class HeaderContainer extends React.Component {
   render() {
     return <div className="HeaderContainer">
@@ -12,7 +15,24 @@ class HeaderContainer extends React.Component {
           alt="logo"
         />
       </a>
-      {this._renderLoginButton()}
+      <div className="HeaderContainer_Account">
+        {this._renderAccountInfo()}
+        {this._renderLoginButton()}
+      </div>
+    </div>;
+  }
+
+  _renderAccountInfo() {
+    if (!user.myInfo) {
+      return null;
+    }
+    return <div className="HeaderContainer_AccountInfo">
+      <div className={`HeaderContainer_AccountType ${user.isPremium ? 'is-premium' : ''}`}>
+        {user.isPremium ? 'プレミアム' : '一般'}サポーター
+      </div>
+      <div className="HeaderContainer_AccountId">
+        ID: {user.myInfo.uid}
+      </div>
     </div>;
   }
 

@@ -3,6 +3,7 @@ module.exports = {
   entry: {
     'top': './top.js',
     'users_edit': './users_edit.js',
+    'legacy_onsen_pc': './legacy_onsen_pc.js',
     'background': './background.js'
   },
   output: {

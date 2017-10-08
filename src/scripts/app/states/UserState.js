@@ -8,19 +8,71 @@ class UserState {
    */
   _privateAPI;
   /**
-   * @type {object}
-   * @property {number[]} program_ids
-   * @property {number[]} performer_ids
+   * @type {number[]} favoriteProgramIds
    */
-  @observable favorites;
+  @observable.shallow favoriteProgramIds = [];
+  /**
+   * @type {number[]} favoritePerformerIds
+   */
+  @observable.shallow favoritePerformerIds = [];
+  /**
+   * @type {object}
+   * @property {number} uid
+   * @property {string} type
+   */
+  @observable myInfo;
+
+  @computed get isPremium() {
+    return !!this.myInfo && this.myInfo.type === 'paid';
+  }
 
   constructor () {
     this._privateAPI = new OnsenPrivateAPI();
   }
 
+  fetchMyInfo() {
+    this._privateAPI.myInfo(Context.oauthAccessToken).then(response => {
+      this.myInfo = response;
+    });
+  }
+
   fetchFavorites() {
     return this._privateAPI.favorites(Context.oauthAccessToken).then((response) => {
-      this.favorites = response;
+      this.favoriteProgramIds = response.program_ids || [];
+      this.favoritePerformerIds = response.performer_ids || [];
+    });
+  }
+
+  addProgramFavorite(programId) {
+    if (!programId) {
+      return;
+    }
+    this._privateAPI.addProgramFavorite(programId, Context.oauthAccessToken).then(response => {
+      this.favoriteProgramIds.push(programId);
+    });
+  }
+  deleteProgramFavorite(programId) {
+    if (!programId) {
+      return;
+    }
+    this._privateAPI.deleteProgramFavorite(programId, Context.oauthAccessToken).then(response => {
+      this.favoriteProgramIds = this.favoriteProgramIds.filter(id => id !== programId);
+    });
+  }
+  addPerformerFavorite(performerId) {
+    if (!performerId) {
+      return;
+    }
+    this._privateAPI.addPerformerFavorite(performerId, Context.oauthAccessToken).then(response => {
+      this.favoritePerformerIds.push(performerId);
+    });
+  }
+  deletePerformerFavorite(performerId) {
+    if (!performerId) {
+      return;
+    }
+    this._privateAPI.deletePerformerFavorite(performerId, Context.oauthAccessToken).then(response => {
+      this.favoritePerformerIds = this.favoritePerformerIds.filter(id => id !== performerId);
     });
   }
 }

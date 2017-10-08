@@ -5,7 +5,6 @@
   "content_scripts": [
     {
       "matches": [
-        "http://www.onsen.ag/*",
         "https://app.onsen.ag/top"
       ],
       "js": [
@@ -13,6 +12,14 @@
       ],
       "css": [
         "styles/top.css"
+      ]
+    },
+    {
+      "matches": [
+        "http://www.onsen.ag/*"
+      ],
+      "js": [
+        "scripts/legacy_onsen_pc.js"
       ]
     },
     {
@@ -30,7 +37,7 @@
   "permissions": [
     "storage",
     "tabs",
-    "*://*/*.m3u8*",
+    "https://onsen-dl.sslcs.cdngc.net/*.m3u8*",
     "webRequest",
     "webRequestBlocking",
     "https://app.onsen.ag/*"

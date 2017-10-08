@@ -1,7 +1,10 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { player } from '../../states/PlayerState';
+import { user } from '../../states/UserState';
+import { programs } from '../../states/ProgramsState';
 import VideoPlayer from "../common/VideoPlayer";
+import HeartIcon from "../common/HeartIcon";
 
 @observer
 class PlayerContainer extends React.Component {
@@ -24,13 +27,27 @@ class PlayerContainer extends React.Component {
     if (!player.program) {
       return null;
     }
+    const isFavoriteProgram = user.favoriteProgramIds.includes(player.program.id);
     return <div className="PlayerContainer_Information">
-      <div className="PlayerContainer_Information_Title">
+      <div className={`PlayerContainer_Information_Title ${isFavoriteProgram ? 'is-favorite' : ''}`}>
         {player.program.title}
+        <HeartIcon
+          onClick={() => isFavoriteProgram ? user.deleteProgramFavorite(player.program.id) : user.addProgramFavorite(player.program.id)}
+        />
       </div>
       <div className="PlayerContainer_Information_Performers">
         {player.program.performer_list.map(performer => {
-          return <span className="PlayerContainer_Information_Performers_PerformerName" key={performer}>{performer}</span>;
+          const performerId = this._getPerformerId(performer);
+          const isFavorite = this._isFavoritePerformer(performerId);
+          return <span
+            className={`PlayerContainer_Information_Performers_PerformerName ${isFavorite ? 'is-favorite' : ''}`}
+            key={performer}
+          >
+            {performer}
+            <HeartIcon
+              onClick={() => isFavorite ? user.deletePerformerFavorite(performerId) : user.addPerformerFavorite(performerId)}
+            />
+          </span>;
         })}
       </div>
       <div className="PlayerContainer_Information_Description"
@@ -67,6 +84,25 @@ class PlayerContainer extends React.Component {
         </div>;
       })}
     </div>;
+  }
+
+  _isFavoritePerformer(performerId) {
+    return user.favoritePerformerIds.includes(performerId);
+  }
+
+  _getPerformerId(performerName) {
+    if (!player.program) {
+      return null;
+    }
+    const program = programs.list.find(program => program.id === player.program.id);
+    if (!program) {
+      return null;
+    }
+    const performer = program.performers.find(performer => performer.name === performerName);
+    if (!performer) {
+      return null;
+    }
+    return performer.id;
   }
 
   _onEpisodeClick = (episodeId) => {

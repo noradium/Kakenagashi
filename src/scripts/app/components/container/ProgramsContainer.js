@@ -1,5 +1,5 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import React from 'react';
+import { observer } from 'mobx-react';
 import { programs } from '../../states/ProgramsState';
 import { player } from '../../states/PlayerState';
 import { user } from '../../states/UserState';
@@ -107,9 +107,9 @@ class ProgramsContainer extends React.Component {
         case ProgramsContainer.Filter.Holiday:
           return 6 === program.program_delivery_day_of_week;
         case ProgramsContainer.Filter.FavoriteProgram:
-          return !user.favorites || user.favorites.program_ids.includes(program.id);
+          return user.favoriteProgramIds.includes(program.id);
         case ProgramsContainer.Filter.FavoritePerformer:
-          return !user.favorites || program.performers.some(performer => user.favorites.performer_ids.includes(performer.id));
+          return program.performers.some(performer => user.favoritePerformerIds.includes(performer.id));
         default:
           return true;
       }

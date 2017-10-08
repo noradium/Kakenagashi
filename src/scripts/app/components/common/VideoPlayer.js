@@ -14,8 +14,10 @@ export default class VideoPlayer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.src !== nextProps.src && nextProps.src) {
       this.videoNode.poster = nextProps.poster;
-      this._hlsPlayer.loadSource(nextProps.src);
-      this._hlsPlayer.attachMedia(this.videoNode);
+      if (Hls.isSupported()) {
+        this._hlsPlayer.loadSource(nextProps.src);
+        this._hlsPlayer.attachMedia(this.videoNode);
+      }
     }
   }
 
@@ -30,16 +32,6 @@ export default class VideoPlayer extends React.Component {
     plyr.setup(this.videoNode);
   }
 
-  // destroy player on unmount
-  componentWillUnmount() {
-    // if (this.player) {
-    //   this.player.dispose()
-    // }
-  }
-
-  // wrap the player in a div with a `data-vjs-player` attribute
-  // so videojs won't create additional wrapper in the DOM
-  // see https://github.com/videojs/video.js/pull/3856
   render() {
     return (
       <div className="VideoPlayer">
