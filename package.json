@@ -1,5 +1,5 @@
 {
-  "name": "onsen-web",
+  "name": "Kakenagashi",
   "version": "1.0.0",
   "description": "音泉の新配信システムがアプリしか対応してないのでPCで見られるようにする chrome 拡張です",
   "scripts": {
