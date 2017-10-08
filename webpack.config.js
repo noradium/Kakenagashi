@@ -3,9 +3,7 @@ module.exports = {
   entry: {
     'top': './top.js',
     'users_edit': './users_edit.js',
-    'background': './background.js',
-    'player': './player.js',
-    'hls': '../../node_modules/hls.js/dist/hls.js'
+    'background': './background.js'
   },
   output: {
     path: __dirname + '/dist/scripts',

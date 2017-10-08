@@ -1,5 +1,5 @@
-import ChromeStorage from './storage/ChromeStorage';
 import qs from 'querystring';
+import SessionStorage from "./storage/SessionStorage";
 
 // リダイレクト先の ag.onsen.app:// のリクエストを通して、code を奪い取るために img 要素の src として読み込む。
 const image = document.createElement('img');
@@ -27,7 +27,7 @@ function onImageError(error) {
         return response.json();
       })
       .then((json) => {
-        return ChromeStorage.set('access_token', json['access_token'])
+        return SessionStorage.set('access_token', json['access_token'])
       })
       .then(() => {
         location.href = 'https://app.onsen.ag/top';

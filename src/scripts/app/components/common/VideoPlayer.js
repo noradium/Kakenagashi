@@ -5,14 +5,15 @@ import plyr from 'plyr';
 
 export default class VideoPlayer extends React.Component {
   static propTypes = {
-    src: PropTypes.string
+    src: PropTypes.string,
+    poster: PropTypes.string
   };
 
   _hlsPlayer;
 
   componentWillReceiveProps(nextProps) {
     if (this.props.src !== nextProps.src && nextProps.src) {
-      console.log('loadsource', nextProps.src);
+      this.videoNode.poster = nextProps.poster;
       this._hlsPlayer.loadSource(nextProps.src);
       this._hlsPlayer.attachMedia(this.videoNode);
     }
@@ -21,9 +22,7 @@ export default class VideoPlayer extends React.Component {
   componentDidMount() {
     if (Hls.isSupported()) {
       this._hlsPlayer = new Hls();
-      this._hlsPlayer.loadSource('https://content.jwplatform.com/manifests/vM7nH0Kl.m3u8');
-      this._hlsPlayer.attachMedia(this.videoNode);
-      this._hlsPlayer.on(Hls.Events.MANIFEST_PARSED,function() {
+      this._hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
         this.videoNode.play();
       });
     }

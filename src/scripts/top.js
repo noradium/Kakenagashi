@@ -1,8 +1,9 @@
-import ChromeStorage from './storage/ChromeStorage';
 import renderApp from './app';
+import SessionStorage from "./storage/SessionStorage";
 
+const oauthAccessToken = SessionStorage.get('access_token');
+if (!oauthAccessToken) {
+  location.href = 'https://app.onsen.ag/users/sign_in';
+}
 document.body.innerHTML = '<div id="app-root"></div>';
-ChromeStorage.get('access_token')
-  .then((oauthAccessToken) => {
-    renderApp('#app-root', {oauthAccessToken});
-  });
+renderApp('#app-root', {oauthAccessToken});

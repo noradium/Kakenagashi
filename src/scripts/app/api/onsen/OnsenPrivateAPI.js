@@ -8,6 +8,13 @@ export default class OnsenPrivateAPI {
       });
   }
 
+  favorites(accessToken) {
+    return this._fetch('/favorites/ids', accessToken)
+      .then((response) => {
+        return response.json();
+      });
+  }
+
   _fetch(path, accessToken) {
     return fetch(`${OnsenPrivateAPI.BASE_URL}${path}`, {
       headers: new Headers({Authorization: `Bearer ${accessToken}`})

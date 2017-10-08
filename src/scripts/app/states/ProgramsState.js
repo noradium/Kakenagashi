@@ -1,5 +1,6 @@
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
 import OnsenPublicAPI from "../api/onsen/OnsenPublicAPI";
+import OnsenPrivateAPI from "../api/onsen/OnsenPrivateAPI";
 
 /**
  * @typedef {object} Performer
@@ -41,9 +42,14 @@ class ProgramsState {
    * @type {Program[]}
    */
   @observable list;
+  /**
+   * @type {string|null}
+   */
+  @observable currentFilter;
 
   constructor () {
     this._publicAPI = new OnsenPublicAPI();
+    this._privateAPI = new OnsenPrivateAPI();
   }
 
   update() {

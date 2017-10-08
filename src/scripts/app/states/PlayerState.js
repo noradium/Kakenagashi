@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
 import OnsenPrivateAPI from "../api/onsen/OnsenPrivateAPI";
 import Context from "../Context";
 
@@ -94,9 +94,24 @@ class PlayerState {
    */
   @observable program;
   /**
-   * @type {string|null}
+   * @type {number|null}
    */
-  @observable currentPlayingSrc;
+  @observable currentPlayingEpisodeId;
+
+  @computed get currentPlayingSrc() {
+    if (!this.program || !this.program.episodes) {
+      return null;
+    }
+    const episode = this.program.episodes.find((episode) => episode.id === this.currentPlayingEpisodeId);
+    if (!episode) {
+      return null;
+    }
+    const episodeFile = episode.episode_files ? episode.episode_files[0] : null;
+    if (!episodeFile) {
+      return null;
+    }
+    return episodeFile.media_url;
+  }
 
   constructor () {
     this._privateAPI = new OnsenPrivateAPI();
@@ -105,26 +120,17 @@ class PlayerState {
   updateProgram(programId) {
     return this._privateAPI.program(programId, Context.oauthAccessToken).then((response) => {
       this.program = response;
-      const initialEpisode = this.program.episodes[0];
-      const initialEpisodeFile = initialEpisode.episode_files[0];
-      this.play(initialEpisode.id, initialEpisodeFile.id);
+      const episodeId = this.program.episodes ? this.program.episodes[0].id : null;
+      this.play(episodeId);
     });
   }
 
-  play(episodeId, episodeFileId) {
-    this.currentPlayingSrc = this._getSrc(episodeId, episodeFileId);
-  }
-
-  _getSrc(episodeId, episodeFileId) {
-    const episode = this.program.episodes.find((episode) => episode.id === episodeId);
-    if (!episode) {
-      return null;
-    }
-    const episodeFile = episode.episode_files.find((episodeFile) => episodeFile.id === episodeFileId);
-    if (!episodeFile) {
-      return null;
-    }
-    return episodeFile.media_url;
+  /**
+   * 指定したエピソードを再生開始します
+   * @param episodeId
+   */
+  play(episodeId) {
+    this.currentPlayingEpisodeId = episodeId;
   }
 }
 
