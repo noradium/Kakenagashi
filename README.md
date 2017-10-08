@@ -4,10 +4,13 @@
 # features
 `https://app.onsen.ag/top` 上に Android, iOSアプリ版の音泉の機能が使えるページを表示します。
 
-# install
+# Install
 [Chrome Web Store](https://chrome.google.com/webstore/detail/kakenagashi/fogobdipdmhcpljjjhjaldnkgfjdekon?hl=ja&gl=JP)
 
-# build
+# License
+このソフトウェアは MIT ライセンスのもと公開されています。
+
+# Build
 ```
 $ npm run build
 ```
